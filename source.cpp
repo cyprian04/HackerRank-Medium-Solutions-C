@@ -36,15 +36,15 @@ int main() {
         {
             std::cout << Server::compute(A, B) << std::endl;
         }
-        catch (std::bad_alloc&)
+        catch (std::bad_alloc&) 
         {
             std::cout << "Not enough memory" << std::endl;
         }
-        catch (std::exception& e)
+        catch (std::exception& e) //catching c++ STL exceptions
         {
             std::cout << "Exception: " << e.what() << std::endl;
         }
-        catch (...)
+        catch (...) //catching all(others) exceptions
         {
             std::cout << "Other Exception" << std::endl;
         }
