@@ -36,7 +36,7 @@ public:
         std::cout << name << " " << age << " " << total << " " << id << std::endl;
     }
 private:
-    int examScores[6], total, id;
+    int examScores[6] = { 0 }, total = 0, id = 0;
 };
 
 class Professor : public Person
@@ -59,25 +59,24 @@ int main() {
 
     int n, val;
     std::cin >> n; //The number of objects that is going to be created.
-    Person* per[n]; // it won't compile in Visual Studio2019, bec HackerRank provides for us the whole main func, where we have declarations
-                    // Person* per[n]; As we know it can't compile because we can't declare size of arrray at runtime if it's placed on stack
-                    // for the problem purpose I'm not going to change any of this
+    std::vector<Person*> persons;
+
     for (int i = 0; i < n; i++) {
 
         std::cin >> val;
         if (val == 1) {
             // If val is 1 current object is of type Professor
-            per[i] = new Professor;
-
+            persons.emplace_back(new Professor);
         }
-        else per[i] = new Student; // Else the current object is of type Student
+        else persons.emplace_back(new Student); // Else the current object is of type Student
 
-        per[i]->GetData(); // Get the data from the user.
-
+        persons.back()->GetData(); // Get the data from the user.
     }
 
-    for (int i = 0; i < n; i++)
-        per[i]->PutData(); // Print the required output for each object.
-
+    for (const auto& person : persons)
+    {
+        person->PutData(); // Print the required output for each object.
+        delete person;
+    }
     return 0;
 }
